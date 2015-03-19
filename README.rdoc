@@ -1,4 +1,4 @@
-= vestal_versions for Rails 3
+= vestal_versions for Rails 4
 
 Finally, DRY ActiveRecord versioning!
 
@@ -8,15 +8,19 @@ Finally, DRY ActiveRecord versioning!
 
 And that's just what <tt>vestal_versions</tt> does. Not only can a model be reverted to a previous version number but also to a date or time!
 
+== Status
+
+I haven't completely tested all of the problems, but as I use the basic features of vestal_versions, I will correct any errors I find and push the changes up here.
+
 == Compatibility
 
-Tested with Active Record 3.0.3 with Ruby 1.8.7 and 1.9.2.
+I'm currently using it with Rails 4.2, Ruby 2.2.0.
 
 == Installation
 
 In the Gemfile:
 
-  gem 'vestal_versions', :git => 'git://github.com/adamcooper/vestal_versions'
+  gem 'vestal_versions', :git => 'git://github.com/safetypins/vestal_versions'
 
 Next, generate and run the first and last versioning migration you'll ever need:
 
@@ -142,14 +146,16 @@ There are a handful of exciting new additions in version 1.0 of <tt>vestal_versi
     @user.version # => 1
     @user.versions.count # => 0
 
-* Storing which user is responsible for a revision. Rather than introduce a lot of controller magic to guess what to store, you can simply update an additional attribute on your versioned model: <tt>updated_by</tt>.
+* Storing which user is responsible for a revision. Rather than introduce a lot of controller magic to guess what to store, you can simply update an additional attribute on your versioned model: <tt>updated_by</tt>. The original method was to include the <tt>udpated_by</tt> attribute in the update, but for some reason, this doesn't seem to work when updating attributes in the web server. It definitely works in the console, but not in the controller. However, if the attribute is assigned before the update_attributes, it gets passed through properly.
 
-    @user.update_attributes(:last_name => "Jobs", :updated_by => "Tyler")
+    @user.updated_by = "Tyler"
+    @user.update_attributes(:last_name => "Jobs")
     @user.versions.last.user # => "Tyler"
 
   Instead of passing a simple string to the <tt>updated_by</tt> setter, you can pass a model instance, such as an ActiveRecord user or administrator. The association will be saved polymorphically alongside the version.
 
-    @user.update_attributes(:last_name => "Jobs", :updated_by => current_user)
+    @user.updated_by = current_user
+    @user.update_attributes(:last_name => "Jobs")
     @user.versions.last.user # => #<User first_name: "Steven", last_name: "Tyler">
 
 * Global configuration. The new <tt>vestal_versions</tt> Rails generator also writes an initializer with instructions on how to set application-wide options for the <tt>versioned</tt> method.
