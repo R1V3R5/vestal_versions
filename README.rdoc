@@ -20,7 +20,7 @@ I'm currently using it with Rails 4.2, Ruby 2.2.0.
 
 In the Gemfile:
 
-  gem 'vestal_versions', :git => 'git://github.com/safetypins/vestal_versions'
+  gem 'vestal_versions', :git => 'git://github.com/R1V3R5/vestal_versions'
 
 Next, generate and run the first and last versioning migration you'll ever need:
 
