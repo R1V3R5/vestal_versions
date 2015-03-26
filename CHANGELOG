@@ -1,4 +1,10 @@
 HEAD
+Version 2.2.0
+* Added .rb to migration file
+* Removed include before_destroy method from deletion.rb
+
+
+
 * Added a new class level 'skip_version' that works on one model at
 a time
 * Internal refactoring and tidying up by Alex Crichton

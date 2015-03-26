@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Joshua Rivers"]
   s.email       = ['joshua.rivers@gmail.com']
-  s.homepage    = 'http://github.com/adamcooper/vestal_versions'
+  s.homepage    = 'http://github.com/R1V3R5/vestal_versions'
   s.summary     = "Keep a DRY history of your ActiveRecord models' changes"
   s.description = "Keep a DRY history of your ActiveRecord models' changes"
 
