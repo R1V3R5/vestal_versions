@@ -4,9 +4,9 @@ module VestalVersions
   module Deletion
     extend ActiveSupport::Concern
 
-    included do
-      before_destroy :create_destroyed_version, :if => :delete_version?
-    end
+    # included do
+    #   before_destroy :create_destroyed_version, :if => :delete_version?
+    # end
 
     # Class methods on ActiveRecord::Base
     module ClassMethods
@@ -26,13 +26,13 @@ module VestalVersions
     module InstanceMethods
       private
 
-        def delete_version?
-          vestal_versions_options[:track_destroy]
-        end
+      def delete_version?
+        vestal_versions_options[:track_destroy]
+      end
 
-        def create_destroyed_version
-          create_version({:modifications => attributes, :number => last_version + 1, :tag => 'deleted'})
-        end
+      def create_destroyed_version
+        create_version({:modifications => attributes, :number => last_version + 1, :tag => 'deleted'})
+      end
 
     end
   end
